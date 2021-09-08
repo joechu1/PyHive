@@ -156,7 +156,7 @@ class Cursor(common.DBAPICursor):
         self._source = source
         self._session_props = session_props if session_props is not None else {}
         self.last_query_id = None
-
+        self._jwt = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqb2VjaHUiLCJuYW1lIjoiSm9obiBEb2UiLCJpYXQiOjE1MTYyMzkwMjJ9.WVn-y62YI2qNseeF_C3_4qlg6qqgWMZTsHZHUrbSy0A'
         if protocol not in ('http', 'https'):
             raise ValueError("Protocol must be http/https, was {!r}".format(protocol))
         self._protocol = protocol
@@ -244,6 +244,7 @@ class Cursor(common.DBAPICursor):
             'X-Presto-Schema': self._schema,
             'X-Presto-Source': self._source,
             'X-Presto-User': self._username,
+            'Authorization': 'Bearer ' + self._jwt
         }
 
         if self._session_props:
